@@ -9,26 +9,21 @@ const [name,setName] = useState("");
 const [trigger,setTrigger] = useState(false);
 
 useEffect(()=>{
-  axios.get('https://jsonplaceholder.typicode.com/users')
+  axios.get('https://jsonplaceholder.typicode.com/users/1')
   .then(res=>setUsers(res.data))
 },[])
-const postUser = ()=>{
-  axios.post('https://jsonplaceholder.typicode.com/users',{name:name})
-  .then (res=>setUsers([...users,res.data]))
+const updateUser = ()=>{
+  axios.put(`https://jsonplaceholder.typicode.com/users/${1}`,{name:name})
+  .then (res=>setUsers(res.data))
   .then (() =>setTrigger(!trigger))
+ 
 }
   return (
    <>
-      {users.map((u,i)=>{
-        return(
-          <div key={i}>
-            {u.name}
-          </div>
-        )
-      })}
+      {users.name}
   
     <input type="text" value={name} onChange={(e)=>setName(e.target.value)}/>
-     <button onClick={postUser}>Post</button>
+     <button onClick={updateUser}>Update</button>
   </>
   )
   
@@ -38,4 +33,4 @@ const postUser = ()=>{
 export default App
 
 // DEPLOY_URL:
-// https://6513ba696ede2a58a361e1d4--calm-rolypoly-e3a8cd.netlify.app/
+// https://6513c33623f2b85d3927724a--dazzling-hummingbird-8daa65.netlify.app/

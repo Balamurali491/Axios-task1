@@ -9,26 +9,22 @@ const [name,setName] = useState("");
 const [trigger,setTrigger] = useState(false);
 
 useEffect(()=>{
-  axios.get('https://jsonplaceholder.typicode.com/users')
+  axios.get('https://jsonplaceholder.typicode.com/users/1')
   .then(res=>setUsers(res.data))
 },[])
-const postUser = ()=>{
-  axios.post('https://jsonplaceholder.typicode.com/users',{name:name})
-  .then (res=>setUsers([...users,res.data]))
+const deleteUser = ()=>{
+  axios.delete(`https://jsonplaceholder.typicode.com/users/${1}`)
+  .then (res=>setUsers(res.data))
   .then (() =>setTrigger(!trigger))
+ 
 }
+if (!users) return "no users"
   return (
    <>
-      {users.map((u,i)=>{
-        return(
-          <div key={i}>
-            {u.name}
-          </div>
-        )
-      })}
+      {users.name}
   
     <input type="text" value={name} onChange={(e)=>setName(e.target.value)}/>
-     <button onClick={postUser}>Post</button>
+     <button onClick={deleteUser}>Delete</button>
   </>
   )
   
@@ -38,4 +34,4 @@ const postUser = ()=>{
 export default App
 
 // DEPLOY_URL:
-// https://6513ba696ede2a58a361e1d4--calm-rolypoly-e3a8cd.netlify.app/
+// https://6513c78b98d3ea5ea97f3e22--melodic-cajeta-d778ec.netlify.app/
